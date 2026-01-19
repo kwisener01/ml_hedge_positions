@@ -30,11 +30,20 @@ class StrategyEngine:
         Args:
             model_path: Path to XGBoost model pickle file
         """
-        # Load XGBoost model
-        with open(model_path, 'rb') as f:
-            model_data = pickle.load(f)
-            self.model = model_data['model']
-            self.selected_features = model_data.get('selected_features', None)
+        self.model = None
+        self.selected_features = None
+
+        # Load XGBoost model if file exists
+        if Path(model_path).exists():
+            with open(model_path, 'rb') as f:
+                model_data = pickle.load(f)
+                self.model = model_data['model']
+                self.selected_features = model_data.get('selected_features', None)
+        else:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Model file not found: {model_path}")
+            logger.error("Strategy engine initialized without model - predictions will fail")
 
         # Initialize Bayesian confidence scorer
         self.bayesian_scorer = BayesianConfidenceScorer()
@@ -233,6 +242,13 @@ class StrategyEngine:
         # Condition 2: Support level only
         level_type = self.identify_level_type(feature_dict)
         if level_type != 'support':
+            return False, 0.0, strength_score, level_type
+
+        # Check if model is loaded
+        if self.model is None:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error("Cannot make predictions - model not loaded")
             return False, 0.0, strength_score, level_type
 
         # Get model prediction

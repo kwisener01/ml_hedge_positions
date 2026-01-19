@@ -58,7 +58,11 @@ class AppConfig:
 
         model_path = Path(self.model_path)
         if not model_path.exists():
-            raise FileNotFoundError(f"Model not found: {self.model_path}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Model not found: {self.model_path}")
+            logger.warning("App will start but predictions will fail until model is uploaded")
+            logger.warning("See RAILWAY_DEPLOYMENT.md for instructions on uploading models")
 
         if self.polling_interval < 10:
             raise ValueError("POLLING_INTERVAL must be >= 10 seconds")
