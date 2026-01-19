@@ -1,0 +1,15 @@
+.env
+
+# Trained models (typically too large for git)
+models/trained/*.pkl
+
+# Local data
+data_local/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Web app logs
+webapplogs/

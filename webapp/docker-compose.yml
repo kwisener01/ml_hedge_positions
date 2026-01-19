@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  qqq-monitor:
+    build: .
+    container_name: qqq-trading-monitor
+    ports:
+      - "8000:8000"
+    environment:
+      - TRADIER_API_KEY=${TRADIER_API_KEY}
+      - TRADIER_USE_SANDBOX=${TRADIER_USE_SANDBOX:-false}
+      - MODEL_PATH=/app/models/QQQ_xgboost_optimized.pkl
+      - POLLING_INTERVAL=${POLLING_INTERVAL:-60}
+      - CACHE_TTL=${CACHE_TTL:-300}
+      - MIN_CONFIDENCE=${MIN_CONFIDENCE:-0.55}
+      - MIN_STRENGTH=${MIN_STRENGTH:-15}
+      - MAX_STRENGTH=${MAX_STRENGTH:-30}
+      - ALERT_COOLDOWN=${ALERT_COOLDOWN:-300}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_FILE=/app/logs/monitor.log
+    volumes:
+      # Mount parent directory for imports
+      - ..:/parent:ro
+      # Mount model directory
+      - ../models/trained:/app/models:ro
+      # Mount logs directory
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - qqq-network
+
+networks:
+  qqq-network:
+    driver: bridge

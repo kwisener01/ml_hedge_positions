@@ -1,0 +1,187 @@
+{
+  "symbol": "QQQ",
+  "model_path": "C:\\Projects\\ml_arb_svm_spy_qqq\\models\\trained\\QQQ_ensemble.pkl",
+  "total_samples": 2507,
+  "distance_analysis": {
+    "hp_support": {
+      "very_close": {
+        "count": 275,
+        "accuracy": 0.5854545454545454,
+        "predictions": {
+          "-1": 101,
+          "1": 174,
+          "0": 0
+        },
+        "mean_distance": 6.79931999552666e-06,
+        "std_distance": 6.510198844087429e-05
+      },
+      "close": {
+        "count": 9,
+        "accuracy": 0.4444444444444444,
+        "predictions": {
+          "-1": 9,
+          "0": 0,
+          "1": 0
+        },
+        "mean_distance": 0.0029100513107308424,
+        "std_distance": 0.0010527581806847289
+      },
+      "near": {
+        "count": 11,
+        "accuracy": 0.6363636363636364,
+        "predictions": {
+          "-1": 11,
+          "0": 0,
+          "1": 0
+        },
+        "mean_distance": 0.00787031089470732,
+        "std_distance": 0.0015812586324089732
+      },
+      "medium": {
+        "count": 27,
+        "accuracy": 0.4444444444444444,
+        "predictions": {
+          "-1": 27,
+          "0": 0,
+          "1": 0
+        },
+        "mean_distance": 0.01533867314857277,
+        "std_distance": 0.0027847446638546293
+      },
+      "far": {
+        "count": 2185,
+        "accuracy": 0.5327231121281465,
+        "predictions": {
+          "-1": 1276,
+          "1": 909,
+          "0": 0
+        },
+        "mean_distance": 0.2756161022994032,
+        "std_distance": 0.14497158968320398
+      }
+    },
+    "hp_resistance": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.5376944555245313,
+        "predictions": {
+          "-1": 1424,
+          "1": 1083,
+          "0": 0
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "mhp_support": {
+      "very_close": {
+        "count": 317,
+        "accuracy": 0.5709779179810726,
+        "predictions": {
+          "-1": 143,
+          "1": 174,
+          "0": 0
+        },
+        "mean_distance": 9.156266106121349e-06,
+        "std_distance": 7.383901964942102e-05
+      },
+      "close": {
+        "count": 11,
+        "accuracy": 0.6363636363636364,
+        "predictions": {
+          "-1": 11,
+          "0": 0,
+          "1": 0
+        },
+        "mean_distance": 0.0033509416063158813,
+        "std_distance": 0.001119152500708994
+      },
+      "near": {
+        "count": 9,
+        "accuracy": 0.3333333333333333,
+        "predictions": {
+          "-1": 8,
+          "1": 1,
+          "0": 0
+        },
+        "mean_distance": 0.006526725758985238,
+        "std_distance": 0.0009768038005957048
+      },
+      "medium": {
+        "count": 24,
+        "accuracy": 0.4166666666666667,
+        "predictions": {
+          "-1": 18,
+          "1": 6,
+          "0": 0
+        },
+        "mean_distance": 0.015340556569297585,
+        "std_distance": 0.002739942385523843
+      },
+      "far": {
+        "count": 2146,
+        "accuracy": 0.5344827586206896,
+        "predictions": {
+          "-1": 1244,
+          "1": 902,
+          "0": 0
+        },
+        "mean_distance": 0.26790407114083337,
+        "std_distance": 0.14476780495377486
+      }
+    },
+    "mhp_resistance": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.5376944555245313,
+        "predictions": {
+          "-1": 1424,
+          "1": 1083,
+          "0": 0
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "hg_above": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.5376944555245313,
+        "predictions": {
+          "-1": 1424,
+          "1": 1083,
+          "0": 0
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "hg_below": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.5376944555245313,
+        "predictions": {
+          "-1": 1424,
+          "1": 1083,
+          "0": 0
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    }
+  },
+  "support_resistance_analysis": {
+    "hp_support": {
+      "count": 284,
+      "up_bias": 22.535211267605632,
+      "up_pct": 61.267605633802816,
+      "down_pct": 38.732394366197184
+    },
+    "mhp_support": {
+      "count": 328,
+      "up_bias": 6.097560975609767,
+      "up_pct": 53.04878048780488,
+      "down_pct": 46.95121951219512
+    }
+  }
+}

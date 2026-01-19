@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python download_data.py:*)",
+      "Bash(python validate_modules.py:*)",
+      "Bash(python train_ensemble.py:*)",
+      "Bash(python training/train_ensemble.py:*)",
+      "Bash(set PYTHONPATH=%CD%)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "symbol": "SPY",
+  "model_path": "C:\\Projects\\ml_arb_svm_spy_qqq\\models\\trained\\SPY_ensemble.pkl",
+  "total_samples": 2507,
+  "distance_analysis": {
+    "hp_support": {
+      "very_close": {
+        "count": 1,
+        "accuracy": 1.0,
+        "predictions": {
+          "1": 1,
+          "-1": 0,
+          "0": 0
+        },
+        "mean_distance": 0.0,
+        "std_distance": 0.0
+      },
+      "medium": {
+        "count": 3,
+        "accuracy": 1.0,
+        "predictions": {
+          "1": 3,
+          "-1": 0,
+          "0": 0
+        },
+        "mean_distance": 0.018928106308403258,
+        "std_distance": 0.0008917309181286485
+      },
+      "far": {
+        "count": 2503,
+        "accuracy": 0.49780263683579706,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 916
+        },
+        "mean_distance": 0.25851137169114535,
+        "std_distance": 0.12554195401295234
+      }
+    },
+    "hp_resistance": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.49860390905464697,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 920
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "mhp_support": {
+      "very_close": {
+        "count": 1,
+        "accuracy": 1.0,
+        "predictions": {
+          "1": 1,
+          "-1": 0,
+          "0": 0
+        },
+        "mean_distance": 0.0,
+        "std_distance": 0.0
+      },
+      "medium": {
+        "count": 3,
+        "accuracy": 1.0,
+        "predictions": {
+          "1": 3,
+          "-1": 0,
+          "0": 0
+        },
+        "mean_distance": 0.018928106308403258,
+        "std_distance": 0.0008917309181286485
+      },
+      "far": {
+        "count": 2503,
+        "accuracy": 0.49780263683579706,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 916
+        },
+        "mean_distance": 0.25851137169114535,
+        "std_distance": 0.12554195401295234
+      }
+    },
+    "mhp_resistance": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.49860390905464697,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 920
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "hg_above": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.49860390905464697,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 920
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    },
+    "hg_below": {
+      "far": {
+        "count": 2507,
+        "accuracy": 0.49860390905464697,
+        "predictions": {
+          "-1": 1481,
+          "0": 106,
+          "1": 920
+        },
+        "mean_distance": 1.0,
+        "std_distance": 0.0
+      }
+    }
+  },
+  "support_resistance_analysis": {
+    "hp_support": {
+      "count": 1,
+      "up_bias": 100.0,
+      "up_pct": 100.0,
+      "down_pct": 0.0
+    },
+    "mhp_support": {
+      "count": 1,
+      "up_bias": 100.0,
+      "up_pct": 100.0,
+      "down_pct": 0.0
+    }
+  }
+}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQQ Support Trading Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700 px-6 py-4">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-400">QQQ SUPPORT TRADING MONITOR</h1>
+            <div class="flex items-center space-x-4">
+                <span id="connection-status" class="flex items-center">
+                    <span class="status-dot status-dot-connected"></span>
+                    <span class="ml-2 text-sm">LIVE</span>
+                </span>
+                <span id="last-update" class="text-sm text-gray-400">--:--:--</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-6">
+        <!-- Current Price Section -->
+        <section class="bg-gray-800 rounded-lg p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-sm text-gray-400 mb-1">CURRENT PRICE</h2>
+                    <div class="flex items-baseline">
+                        <span id="current-price" class="text-5xl font-bold text-white">$---.--</span>
+                        <span id="price-change" class="ml-4 text-xl text-gray-400">+0.00%</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-400">Spread</div>
+                    <div id="current-spread" class="text-xl">$-.----</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strength Meter & Greek Levels -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Strength Meter -->
+            <section class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4">STRENGTH METER</h2>
+
+                <div class="mb-4">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span id="strength-value" class="font-mono">0.0/100</span>
+                        <span id="strength-label" class="text-gray-400">Weak</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-8 overflow-hidden">
+                        <div id="strength-bar" class="h-full strength-weak transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="text-sm text-gray-400 mt-4">
+                    <div>Level Type: <span id="level-type" class="text-white">-</span></div>
+                    <div>Source: <span id="level-source" class="text-white">-</span></div>
+                </div>
+
+                <!-- Strength Components -->
+                <div class="mt-4 space-y-2 text-xs">
+                    <div class="flex justify-between">
+                        <span>Gamma:</span>
+                        <span id="comp-gamma" class="font-mono">0.0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Vanna:</span>
+                        <span id="comp-vanna" class="font-mono">0.0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>HP:</span>
+                        <span id="comp-hp" class="font-mono">0.0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>MHP:</span>
+                        <span id="comp-mhp" class="font-mono">0.0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>HG:</span>
+                        <span id="comp-hg" class="font-mono">0.0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Overlap:</span>
+                        <span id="comp-overlap" class="font-mono">0.0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Greek Levels -->
+            <section class="bg-gray-800 rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4">GREEK LEVELS</h2>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">HP Support:</span>
+                        <span id="hp-support" class="font-mono text-green-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">HP Resistance:</span>
+                        <span id="hp-resist" class="font-mono text-red-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">MHP Support:</span>
+                        <span id="mhp-support" class="font-mono text-green-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">MHP Resistance:</span>
+                        <span id="mhp-resist" class="font-mono text-red-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">HG Below:</span>
+                        <span id="hg-below" class="font-mono text-blue-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">HG Above:</span>
+                        <span id="hg-above" class="font-mono text-blue-400">$---.--</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Gamma Flip:</span>
+                        <span id="gamma-flip" class="font-mono text-purple-400">$---.--</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Model Confidence -->
+        <section class="bg-gray-800 rounded-lg p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4">MODEL CONFIDENCE</h2>
+            <div class="flex items-center justify-between mb-2">
+                <span id="confidence-value" class="text-3xl font-bold">0.0%</span>
+                <span id="model-prob" class="text-gray-400">Model P(UP): 0.0%</span>
+            </div>
+            <div class="w-full bg-gray-700 rounded-full h-6 overflow-hidden">
+                <div id="confidence-bar" class="h-full bg-blue-500 transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div id="status-text" class="mt-4 text-center text-gray-400">WATCHING (No signal)</div>
+        </section>
+
+        <!-- Alert Banner (hidden by default) -->
+        <div id="alert-banner" class="hidden bg-green-600 border-2 border-green-400 rounded-lg p-6 mb-6 animate-pulse-slow">
+            <div class="flex items-start">
+                <div class="text-4xl mr-4">🎯</div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-2">LONG SIGNAL DETECTED!</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>Entry: <span id="alert-entry" class="font-mono font-bold">$---.--</span></div>
+                        <div>Confidence: <span id="alert-confidence" class="font-mono font-bold">--%</span></div>
+                        <div>Strength: <span id="alert-strength" class="font-mono font-bold">--.-</span></div>
+                        <div>Level: <span id="alert-level" class="font-bold">-</span></div>
+                        <div>Stop: <span id="alert-stop" class="font-mono text-red-300">$---.--</span></div>
+                        <div>Target: <span id="alert-target" class="font-mono text-green-300">$---.--</span></div>
+                    </div>
+                </div>
+                <button id="dismiss-alert" class="text-white hover:text-gray-300 text-2xl">&times;</button>
+            </div>
+        </div>
+
+        <!-- Recent Signals -->
+        <section class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">RECENT SIGNALS (Last 24h)</h2>
+            <div class="overflow-auto max-h-96">
+                <table class="w-full text-sm">
+                    <thead class="text-left text-gray-400 border-b border-gray-700">
+                        <tr>
+                            <th class="pb-2">Time</th>
+                            <th class="pb-2">Type</th>
+                            <th class="pb-2">Entry</th>
+                            <th class="pb-2">Confidence</th>
+                            <th class="pb-2">Strength</th>
+                            <th class="pb-2">Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="signals-table" class="divide-y divide-gray-700">
+                        <tr>
+                            <td colspan="6" class="py-4 text-center text-gray-500">No signals yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/sse.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
