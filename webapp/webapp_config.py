@@ -37,10 +37,13 @@ class AppConfig:
     @classmethod
     def from_env(cls):
         """Load configuration from environment variables"""
+        # Default model path - resolves to absolute path
+        default_model = str(Path(__file__).parent.parent / 'models/trained/QQQ_xgboost_optimized.pkl')
+
         return cls(
             tradier_api_key=os.getenv('TRADIER_API_KEY', ''),
             tradier_use_sandbox=os.getenv('TRADIER_USE_SANDBOX', 'false').lower() == 'true',
-            model_path=os.getenv('MODEL_PATH', '../models/trained/QQQ_xgboost_optimized.pkl'),
+            model_path=os.getenv('MODEL_PATH', default_model),
             polling_interval=int(os.getenv('POLLING_INTERVAL', '60')),
             cache_ttl=int(os.getenv('CACHE_TTL', '300')),
             min_confidence=float(os.getenv('MIN_CONFIDENCE', '0.55')),
