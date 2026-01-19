@@ -6,6 +6,9 @@ models/trained/*.pkl
 # Local data
 data_local/
 
+# Collected training data
+data_collected/
+
 # Python cache
 __pycache__/
 *.pyc
@@ -13,3 +16,4 @@ __pycache__/
 
 # Web app logs
 webapplogs/
+webapp/logs/

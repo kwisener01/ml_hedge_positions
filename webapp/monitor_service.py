@@ -17,6 +17,7 @@ from features.feature_matrix import FeatureMatrixBuilder
 from webapp_config import AppConfig
 from state import app_state, QuoteState, GreekLevels, StrengthData, SignalAlert
 from strategy_engine import StrategyEngine
+from data_logger import TrainingDataLogger
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,9 @@ class MonitorService:
 
         # Initialize strategy engine
         self.strategy = StrategyEngine(config.model_path)
+
+        # Initialize data logger for continuous learning
+        self.data_logger = TrainingDataLogger()
 
         logger.info("Monitor service initialized")
 
@@ -143,11 +147,17 @@ class MonitorService:
         )
 
         # 4. Run model prediction
-        proba = await asyncio.to_thread(
-            self.strategy.model.predict_proba,
-            feature_array.reshape(1, -1)
-        )
-        prob_up = proba[0][1]
+        if self.strategy.model is not None:
+            proba = await asyncio.to_thread(
+                self.strategy.model.predict_proba,
+                feature_array.reshape(1, -1)
+            )
+            prob_up = proba[0][1]
+            prediction = 1 if prob_up > 0.5 else 0
+        else:
+            # Model not loaded
+            prob_up = 0.5
+            prediction = 0
 
         # 5. Calculate Bayesian confidence
         confidence = self.strategy.bayesian_scorer.calculate_confidence(
@@ -174,6 +184,24 @@ class MonitorService:
             self.config.max_strength,
             self.config.min_confidence
         )
+
+        # Log prediction for continuous learning
+        try:
+            self.data_logger.log_prediction(
+                symbol=symbol,
+                price=quote.mid_price,
+                prediction=prediction,
+                prob_up=prob_up,
+                confidence=confidence,
+                strength_score=strength_score,
+                level_type=level_type,
+                level_source=level_source,
+                signal_fired=should_enter,
+                feature_array=feature_array,
+                feature_dict=feature_dict
+            )
+        except Exception as e:
+            logger.warning(f"Failed to log prediction: {e}")
 
         # 7. Emit alert if conditions met
         if should_enter:

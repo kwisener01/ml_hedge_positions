@@ -15,6 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from webapp_config import config
 from routes import router
 from monitor_service import MonitorService
+from retraining_scheduler import RetrainingScheduler
 
 # Configure logging
 logging.basicConfig(
@@ -27,18 +28,20 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Global monitor service
+# Global services
 monitor_service = None
 monitor_task = None
+retraining_scheduler = None
+scheduler_task = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
     Application lifespan manager
-    Starts/stops background monitor
+    Starts/stops background monitor and retraining scheduler
     """
-    global monitor_service, monitor_task
+    global monitor_service, monitor_task, retraining_scheduler, scheduler_task
 
     # Startup
     logger.info("Starting QQQ Monitor Application")
@@ -58,6 +61,17 @@ async def lifespan(app: FastAPI):
     monitor_task = asyncio.create_task(monitor_service.start())
     logger.info("Background monitor started")
 
+    # Initialize retraining scheduler
+    retraining_scheduler = RetrainingScheduler(
+        symbol='QQQ',
+        retrain_hour=2,  # 2 AM daily
+        min_samples=100
+    )
+
+    # Start scheduler in background task
+    scheduler_task = asyncio.create_task(retraining_scheduler.start())
+    logger.info("Retraining scheduler started")
+
     yield
 
     # Shutdown
@@ -67,11 +81,22 @@ async def lifespan(app: FastAPI):
     if monitor_service:
         await monitor_service.stop()
 
-    # Cancel background task
+    # Stop scheduler
+    if retraining_scheduler:
+        await retraining_scheduler.stop()
+
+    # Cancel background tasks
     if monitor_task and not monitor_task.done():
         monitor_task.cancel()
         try:
             await monitor_task
+        except asyncio.CancelledError:
+            pass
+
+    if scheduler_task and not scheduler_task.done():
+        scheduler_task.cancel()
+        try:
+            await scheduler_task
         except asyncio.CancelledError:
             pass
 
