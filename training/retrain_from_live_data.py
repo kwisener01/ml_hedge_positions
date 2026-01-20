@@ -30,7 +30,9 @@ class LiveDataRetrainer:
     def __init__(self, symbol: str, data_dir: str = "../data_collected"):
         self.symbol = symbol
         self.data_dir = Path(data_dir)
-        self.model_dir = Path(__file__).parent.parent / "models/trained"
+        # Save models in data_collected volume for persistence
+        self.model_dir = self.data_dir / "models"
+        self.model_dir.mkdir(parents=True, exist_ok=True)
 
     def load_live_data(self) -> tuple:
         """

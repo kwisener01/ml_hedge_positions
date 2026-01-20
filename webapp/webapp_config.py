@@ -37,8 +37,8 @@ class AppConfig:
     @classmethod
     def from_env(cls):
         """Load configuration from environment variables"""
-        # Default model path - resolves to absolute path
-        default_model = str(Path(__file__).parent.parent / 'models/trained/QQQ_xgboost_optimized.pkl')
+        # Default model path - use data_collected volume for persistence
+        default_model = str(Path(__file__).parent.parent / 'data_collected/models/QQQ_xgboost_optimized.pkl')
 
         return cls(
             tradier_api_key=os.getenv('TRADIER_API_KEY', ''),
